@@ -1,0 +1,30 @@
+{
+    "id": "pomn_player",
+    "title": "POMN Player - Music Player Control for POMN Discord Bot",
+    "description": "",
+    "authors": [
+      {
+      "name": "muhahahahe"
+      }
+      ],
+    "version": "0.0.1",
+    "minimumCoreVersion": "10",
+    "compatibleCoreVersion": "10",
+    "compatibility": {
+        "minimum": "10",
+        "verified": "10"
+      },
+    "esmodules": [
+      "./index.js"
+    ],
+    "styles": [
+      "./css/styles.css"
+    ],
+    "languages": [
+      {
+        "lang": "en",
+        "name": "English",
+        "path": "lang/en.json"
+      }
+    ]
+  }

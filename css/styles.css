@@ -1,0 +1,13 @@
+/* Make buttons appear next to each other */
+.pomn-media-controls button {
+    display: inline-block;
+    margin-right: 10px;
+}
+  
+/* Resize .pomn-media-controls */
+.pomn-media-controls {
+    display: flex;
+    align-items: center;
+    max-width: fit-content;
+    max-height: fit-content;
+}

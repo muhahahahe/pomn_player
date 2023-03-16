@@ -26,5 +26,6 @@
         "name": "English",
         "path": "lang/en.json"
       }
-    ]
+    ],
+    "download": "https://github.com/muhahahahe/pomn_player/blob/main/downloads/pomn_player.zip?raw=true"
   }

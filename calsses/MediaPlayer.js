@@ -3,21 +3,25 @@ export class MediaPlayer {
     html;
     playerHtml = $(`
         <div class="pomn-media-controls">
-            <button class="pomn-play-button">
-                <i class="fas fa-play"></i>
-            </button>
-            <button class="pomn-pause-button">
-                <i class="fas fa-pause"></i>
-            </button>
-            <button class="pomn-stop-button">
-                <i class="fas fa-stop"></i>
-            </button>
-            <button class="pomn-skip-button">
-                <i class="fas fa-forward"></i>
-            </button>
-        </div>
-        <div class="pomn-media-search">
-            <input type="text" class="pomn-search-input" placeholder="Search...">
+            <div class="pomn-button-controls">
+                <button class="pomn-play-button">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="pomn-pause-button">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button class="pomn-stop-button">
+                    <i class="fas fa-stop"></i>
+                </button>
+                <button class="pomn-skip-button">
+                    <i class="fas fa-forward"></i>
+                </button>
+            </div>
+            <div class="pomn-search-controls">
+                <div class="pomn-media-search">
+                    <input type="text" class="pomn-search-input" placeholder="Search...">
+                </div>
+            </div>
         </div>
     `);
     ws;
@@ -29,7 +33,8 @@ export class MediaPlayer {
         this.guild = game.settings.get(MODULE_NAME, "guild");
     }
     render() {
-        this.html.find('div.user-controls').after(this.playerHtml);
+        console.log(this.html);
+        this.html.find('nav').after(this.playerHtml);
         this.attachEventListeners();
     }
     attachEventListeners() {

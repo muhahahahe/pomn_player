@@ -55,25 +55,30 @@ class TestConnectionForm extends FormApplication {
             const guild = game.settings.get(MODULE_NAME, "guild");
             const token = game.settings.get(MODULE_NAME, "token");
             try {
-                const socket = new WebSocket(`ws://198.211.110.238:8080?token=${token}&guild=${guild}`);
-                socket.addEventListener("open", () => {
-                });
+                const socket = new WebSocket(`wss://ws.playfoundry.pw:3000?token=${token}&guild=${guild}&test=true`);
                 socket.addEventListener("message", (event) => {
                     const data = JSON.parse(event.data);
                     if (data.success) {
+                        ui.notifications.info(`Successfully connected to "${data.guildName}"`);
                         this._onSuccess(`Successfully connected to "${data.guildName}"`);
                     }
                     else {
+                        ui.notifications.warn(`Failed to connect: ${data.error}`);
                         this._onFailure(`Failed to connect: ${data.error}`);
                     }
                     socket.close();
+                    this._resizeParentElement();
                 });
                 socket.addEventListener("error", () => {
+                    ui.notifications.error("Failed to connect: websocket error");
                     this._onFailure("Failed to connect: websocket error");
+                    this._resizeParentElement();
                 });
             }
             catch (err) {
+                ui.notifications.error(`Failed to connect: ${err.message}`);
                 this._onFailure(err.message);
+                this._resizeParentElement();
             }
         });
     }
@@ -86,5 +91,11 @@ class TestConnectionForm extends FormApplication {
         const resultEl = this.element.find("#test-connection-result");
         resultEl.addClass("error");
         resultEl.text(message);
+    }
+    _resizeParentElement() {
+        const resultEl = this.element.find("#test-connection-result");
+        const parentEl = resultEl.parent();
+        parentEl.css("height", "");
+        parentEl.css("height", `${resultEl.outerHeight()}px`);
     }
 }

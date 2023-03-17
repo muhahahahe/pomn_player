@@ -55,7 +55,7 @@ export class MediaPlayer {
     }
     establishWebSocketConnection() {
         if (!this.ws || this.ws.readyState === WebSocket.CLOSED) {
-            this.ws = new WebSocket(`ws://198.211.110.238:8080?token=${this.token}&guild=${this.guild}`);
+            this.ws = new WebSocket(`wss://ws.playfoundry.pw:3000?token=${this.token}&guild=${this.guild}`);
             this.ws.onopen = () => {
                 console.log('WebSocket connection established');
             };

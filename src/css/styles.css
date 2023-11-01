@@ -1,0 +1,244 @@
+#pomn-player {
+    background: transparent;
+    box-shadow: none;
+    z-index: 101;
+    margin: 0px;
+    padding: 0px;
+    align-items: center;
+}
+  
+#pomn-player .window-header.flexrow.draggable {
+    background: transparent;
+    position: relative;
+    top: 5px;
+    width: 96%;
+    height: 18px;
+    z-index: 102;
+    border: 0px;
+    border-radius: 102px 102px 0px 0px;
+
+    /* Hide the text. */
+    font-size: 0px;
+}
+
+#pomn-player .window-header.flexrow.draggable i {
+    color: black;
+    height: 15px;
+    font-size: 15px;
+    margin-top: 9px;
+    margin-right: 16px;
+    overflow: hidden;
+}
+
+#pomn-player .window-content {
+    position: absolute;
+    width: 345px;
+    height: 200px;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    background: transparent;
+}
+
+#pomn_player {
+    width: 345px;
+    height: 200px;
+}
+
+#pomn_interface {
+    position: absolute;
+    display: flex;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 52%;
+}
+
+#pomn_controls {
+    position: absolute;
+    display: flex;
+    top: 52%;
+    left: 0%;
+    width: 100%;
+    height: 48%;
+}
+
+.pomn-player-background {
+    opacity: 0.8;
+}
+
+.pomn-player-volume-bar {
+    opacity: 0.5;
+}
+
+.pomn-interface-thumbnail {
+    position: absolute;
+    top: 27.6%;
+    left: 8%;
+    bottom: 9.5%;
+    right: 68%;
+    border-radius: 8px;
+    background-color: black;
+}
+
+.pomn-interface-repeat {
+    display: flex;
+    position: absolute;
+    top: 27.6%;
+    left: 33.7%;
+    bottom: 54.6%;
+    right: 31.4%;
+    border-radius: 8px;
+}
+
+.pomn-interface-duration {
+    display: flex;
+    position: absolute;
+    top: 50.6%;
+    left: 33.7%;
+    bottom: 31.3%;
+    right: 31.4%;
+    border-radius: 8px;
+}
+
+.pomn-player-interface-left {
+    width: 100%;
+    padding: 2%;
+    text-align: left;
+    color: white;
+    overflow: hidden;
+    font-size: 0.8em;
+}
+
+.pomn-player-interface-repeat {
+    padding-top: 2%;
+    padding-right: 4%;
+    width: 100%;
+    text-align: right;
+    color: white;
+    overflow: hidden;
+    font-size: 0.8em;
+}
+
+.pomn-player-interface-duration {
+    padding-top: 2%;
+    padding-right: 4%;
+    width: 100%;
+    text-align: right;
+    color: white;
+    overflow: hidden;
+    font-size: 0.8em;
+}
+
+.pomn-interface-title {
+    position: absolute;
+    top: 72.7%;
+    left: 33.7%;
+    bottom: 9.5%;
+    right: 6.9%;
+    border-radius: 8px;
+}
+
+#pomn-interface-search {
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    overflow: hidden;
+    font-size: 0.8em;
+    background-color: transparent;
+    border: 0px;
+}
+
+#pomn-interface-search::placeholder {
+    color: white;
+    font-style: normal;
+}  
+
+.pomn-controls-volume {
+    position: absolute;
+    top: 12.1%;
+    left: 21.55%;
+    bottom: 45.4%;
+    right: 21.55%;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pomn-controls-play {
+    position: absolute;
+    top: 22.5%;
+    left: 5.1%;
+    bottom: 34.6%;
+    right: 82.9%;
+    border-radius: 50%;
+}
+
+.pomn-controls-stop {
+    position: absolute;
+    top: 22.5%;
+    left: 82.9%;
+    bottom: 34.6%;
+    right: 5.1%;
+    border-radius: 50%;
+}
+
+.pomn-controls-skip {
+    position: absolute;
+    top: 61.4%;
+    left: 25.7%;
+    bottom: 13.4%;
+    right: 64.4%;
+    border-radius: 8px;
+}
+
+.pomn-controls-repeat_single {
+    position: absolute;
+    top: 61.4%;
+    left: 38.6%;
+    bottom: 13.4%;
+    right: 51.5%;
+    border-radius: 8px;
+}
+
+.pomn-controls-repeat_all {
+    position: absolute;
+    top: 61.4%;
+    left: 51.4%;
+    bottom: 13.4%;
+    right: 38.7%;
+    border-radius: 8px;
+}
+
+.pomn-controls-shuffle {
+    position: absolute;
+    top: 61.4%;
+    left: 64.2%;
+    bottom: 13.4%;
+    right: 25.9%;
+    border-radius: 8px;
+}
+
+.pomn-volume-slider-wrapper {
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    width: 100%;
+}
+
+#pomn-volume-slider {
+    position: absolute;
+    top: -6px;
+    width: 100%;
+    opacity: 0;
+    z-index: 102;
+    cursor: pointer;
+}
+
+#pomn-volume-indicator {
+    position: absolute;
+    top: -16px;
+    width: 29px;
+    z-index: 101;
+}

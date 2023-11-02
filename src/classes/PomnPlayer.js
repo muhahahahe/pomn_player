@@ -166,7 +166,7 @@ export class PomnPlayer extends FormApplication {
 		}
 		const duration = html.find('.pomn-player-interface-duration');
 		if (this.playerState.track?.durationInSec) {
-			duration.text(secondsToTime(this.playerState.track.duration));
+			duration.text(secondsToTime(this.playerState.track.durationInSec));
 		} else {
 			duration.text('');
 		}

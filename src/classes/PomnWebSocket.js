@@ -19,7 +19,7 @@ export class PomnWebSocket {
 	}
 	async connect() {
 		try {
-			const protocol = this.secure ? 'wss' : 'ws';
+			const protocol = this.secure ? 'https' : 'http';
 			this.socket = io(`${protocol}://${this.address}:${this.port}`, {
 				auth: {
 					token: this.token,

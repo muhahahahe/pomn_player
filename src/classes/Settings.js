@@ -84,7 +84,7 @@ class TestConnectionForm extends FormApplication {
 			const address = game.settings.get(MODULE_NAME, 'address');
 			const port = game.settings.get(MODULE_NAME, 'port');
 			const secure = game.settings.get(MODULE_NAME, 'secure');
-			const protocol = secure ? 'wss' : 'ws';
+			const protocol = secure ? 'https' : 'http';
 			try {
 				const socket = io(`${protocol}://${address}:${port}`, {
 					auth: {

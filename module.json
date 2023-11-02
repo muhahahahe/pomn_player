@@ -1,31 +1,27 @@
 {
-    "id": "pomn_player",
-    "title": "POMN Player - Music Player Control for POMN Discord Bot",
-    "description": "",
-    "authors": [
-      {
-      "name": "muhahahahe"
-      }
-      ],
-    "version": "0.0.4",
-    "minimumCoreVersion": "10",
-    "compatibleCoreVersion": "10",
-    "compatibility": {
-        "minimum": "10",
-        "verified": "10"
-      },
-    "esmodules": [
-      "./index.js"
-    ],
-    "styles": [
-      "./css/styles.css"
-    ],
-    "languages": [
-      {
-        "lang": "en",
-        "name": "English",
-        "path": "lang/en.json"
-      }
-    ],
-    "download": "https://github.com/muhahahahe/pomn_player/raw/main/downloads/pomn_player-latest.zip"
-  }
+	"id": "pomn_player",
+	"title": "POMN Player - Music Player Control for POMN Discord Bot",
+	"description": "",
+	"authors": [
+		{
+			"name": "muhahahahe"
+		}
+	],
+	"version": "0.0.4",
+	"minimumCoreVersion": "10",
+	"compatibleCoreVersion": "10",
+	"compatibility": {
+		"minimum": "10",
+		"verified": "10"
+	},
+	"esmodules": ["./index.js"],
+	"styles": ["./css/styles.css"],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"download": "https://github.com/muhahahahe/pomn_player/raw/main/downloads/pomn_player-latest.zip"
+}

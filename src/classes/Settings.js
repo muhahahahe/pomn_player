@@ -1,4 +1,6 @@
 import { MODULE_NAME } from './constants.js';
+import { io } from 'socket.io-client';
+
 export class Settings {
 	static registerSettings() {
 		game.settings.register(MODULE_NAME, 'address', {
@@ -55,6 +57,8 @@ class TestConnectionForm extends FormApplication {
 	_updateObject(event, formData) {
 		throw new Error('Method not implemented.');
 	}
+	success = false;
+	guild = game.settings.get(MODULE_NAME, 'guild');
 	constructor() {
 		super({});
 	}
@@ -76,47 +80,46 @@ class TestConnectionForm extends FormApplication {
 	activateListeners(html) {
 		super.activateListeners(html);
 		html.find('#test-connection-button').on('click', async () => {
-			const guild = game.settings.get(MODULE_NAME, 'guild');
 			const token = game.settings.get(MODULE_NAME, 'token');
 			const address = game.settings.get(MODULE_NAME, 'address');
 			const port = game.settings.get(MODULE_NAME, 'port');
 			const secure = game.settings.get(MODULE_NAME, 'secure');
 			const protocol = secure ? 'wss' : 'ws';
 			try {
-				const socket = new WebSocket(`${protocol}://${address}:${port}?token=${token}&guild=${guild}&test=true`);
-				socket.addEventListener('message', (event) => {
-					const data = JSON.parse(event.data);
-					if (data.success) {
-						ui.notifications.info(`Successfully connected to "${data.guildName}"`);
-						this._onSuccess(`Successfully connected to "${data.guildName}"`);
-					} else {
-						ui.notifications.warn(`Failed to connect: ${data.error}`);
-						this._onFailure(`Failed to connect: ${data.error}`);
-					}
-					socket.close();
-					this._resizeParentElement();
+				const socket = io(`${protocol}://${address}:${port}`, {
+					auth: {
+						token: token,
+						guildId: this.guild,
+						client: 'POMN_Player FoundryVTT',
+					},
 				});
-				socket.addEventListener('error', () => {
-					ui.notifications.error('Failed to connect: websocket error');
-					this._onFailure('Failed to connect: websocket error');
-					this._resizeParentElement();
+				socket.emit('test');
+
+				socket.on('success', () => {
+					this.success = true;
+					this._onSuccess(`Successfully connected to ${this.guild}`);
 				});
+
+				setTimeout(() => this._onFailure(`Failed to connect to ${this.guild}`), 20000);
 			} catch (err) {
-				ui.notifications.error(`Failed to connect: ${err.message}`);
 				this._onFailure(err.message);
-				this._resizeParentElement();
 			}
 		});
 	}
 	_onSuccess(message) {
+		ui.notifications.info(`Successfully connected to ${this.guild}`);
 		const resultEl = this.element.find('#test-connection-result');
 		resultEl.removeClass('error');
 		resultEl.text(message);
+		this._resizeParentElement();
 	}
 	_onFailure(message) {
+		if (this.success) return;
+		ui.notifications.error(`Failed to connect to ${this.guild}`);
 		const resultEl = this.element.find('#test-connection-result');
 		resultEl.addClass('error');
 		resultEl.text(message);
+		this._resizeParentElement();
 	}
 	_resizeParentElement() {
 		const resultEl = this.element.find('#test-connection-result');

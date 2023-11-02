@@ -1,42 +1,44 @@
+import { io } from 'socket.io-client';
+
 export class PomnWebSocket {
 	guild;
 	token;
+	address;
+	port;
+	secure;
 	onMusicPlayerStateReceived;
 	socket = null;
 	constructor(guild, token, onMusicPlayerStateReceived) {
 		this.guild = guild;
 		this.token = token;
+		this.address = game.settings.get(MODULE_NAME, 'address');
+		this.port = game.settings.get(MODULE_NAME, 'port');
+		this.secure = game.settings.get(MODULE_NAME, 'secure');
 		this.onMusicPlayerStateReceived = onMusicPlayerStateReceived;
 	}
 	async connect() {
 		try {
-			this.socket = new WebSocket(`wss://ws.playfoundry.pw:3003?token=${this.token}&guild=${this.guild}`);
-			this.socket.addEventListener('message', this.onMessage.bind(this));
-			this.socket.addEventListener('error', this.onError.bind(this));
+			const protocol = this.secure ? 'wss' : 'ws';
+			this.socket = io(`${protocol}://${this.address}:${this.port}`, {
+				auth: {
+					token: this.token,
+					guildId: this.guild,
+					client: 'POMN_Player FoundryVTT',
+				},
+			});
+			this.socket.on('connected', (state) => this.onMusicPlayerStateReceived('connected', state));
+			this.socket.on('disconnected', () => this.onMusicPlayerStateReceived('disconnected'));
+			this.socket.on('idle', (state, track) => this.onMusicPlayerStateReceived('idle', state, track));
+			this.socket.on('playing', (state, track) => this.onMusicPlayerStateReceived('playing', state, track));
+			this.socket.on('paused', (state, track) => this.onMusicPlayerStateReceived('paused', state, track));
+			this.socket.on('statechange', (state, track) => this.onMusicPlayerStateReceived('statechange', state, track));
+			this.socket.on('error', this.onError.bind(this));
 		} catch (err) {
-			console.error(`Failed to connect: \${err.message}`);
+			console.error(`Failed to connect: ${err.message}`);
 		}
 	}
-	close() {
-		if (this.socket) {
-			this.socket.close();
-		}
-	}
-	send(data) {
-		if (this.socket) {
-			this.socket.send(data);
-		} else {
-			this.connect();
-		}
-	}
-	getReadyState() {
-		return this.socket ? this.socket.readyState : null;
-	}
-	onMessage(event) {
-		const data = JSON.parse(event.data);
-		this.onMusicPlayerStateReceived(data);
-	}
+
 	onError() {
-		console.error('Failed to connect: websocket error');
+		console.error('An error occured with pomn_player!');
 	}
 }

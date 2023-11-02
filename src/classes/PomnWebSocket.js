@@ -1,3 +1,4 @@
+import { MODULE_NAME } from './constants.js';
 import { io } from 'socket.io-client';
 
 export class PomnWebSocket {

@@ -62,33 +62,33 @@ export class PomnPlayer extends FormApplication {
 	}
 	_onPlayPauseButtonClick(event) {
 		event.preventDefault();
-		this.webSocket?.emit('pause');
+		this.webSocket?.socket.emit('pause');
 	}
 	_onStopButtonClick(event) {
 		event.preventDefault();
-		this.webSocket?.emit('stop');
+		this.webSocket?.socket.emit('stop');
 	}
 	_onSkipButtonClick(event) {
 		event.preventDefault();
-		this.webSocket?.emit('skip');
+		this.webSocket?.socket.emit('skip');
 	}
 	_onRepeatSingleButtonClick(event) {
 		event.preventDefault();
-		this.webSocket?.emit('repeat');
+		this.webSocket?.socket.emit('repeat');
 	}
 	_onRepeatAllButtonClick(event) {
 		event.preventDefault();
-		this.webSocket?.emit('repeatall');
+		this.webSocket?.socket.emit('repeatall');
 	}
 	_onShuffleButtonClick(event) {
 		event.preventDefault();
-		this.webSocket?.emit('shuffle');
+		this.webSocket?.socket.emit('shuffle');
 	}
 	_onSearchFieldKeyPress(event) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			const search = event.target;
-			this.webSocket?.emit('search', search.value);
+			this.webSocket?.socket.emit('search', search.value);
 			event.target.value = '';
 		}
 	}
@@ -105,7 +105,7 @@ export class PomnPlayer extends FormApplication {
 	}
 	_onVolumeSliderEnd(event) {
 		event.preventDefault();
-		this.webSocket?.emit('volume', this.playerState.volume);
+		this.webSocket?.socket.emit('volume', this.playerState.volume);
 	}
 	_onMusicPlayerStateReceived(event, state, track) {
 		switch (event) {
@@ -121,7 +121,6 @@ export class PomnPlayer extends FormApplication {
 				break;
 			case 'disconnected':
 				this.element.find('#pomn-path-status').attr('fill', '#FF0000');
-				this.webSocket?.close();
 				break;
 			default:
 				console.error(`Unknown event: ${event}`);
@@ -208,7 +207,7 @@ export class PomnPlayer extends FormApplication {
 		}
 	}
 	async connect() {
-		if (this.webSocket && this.webSocket.connected) {
+		if (this.webSocket && this.webSocket.socket.connected) {
 			return;
 		} else {
 			const guild = game.settings.get(MODULE_NAME, 'guild') || this.guild;
